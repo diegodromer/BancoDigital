@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "697213479012",
+    "project_id": "banco-digital-e80db",
+    "storage_bucket": "banco-digital-e80db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697213479012:android:636b7aa79b5c864a0a9771",
+        "android_client_info": {
+          "package_name": "com.diegolima.bancodigital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697213479012-a3nj73di60fgegdpbcce5318uf1ba4lb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.diegolima.bancodigital",
+            "certificate_hash": "bd5777155f0c67fd9fc853e64b1915938ef125c3"
+          }
+        },
+        {
+          "client_id": "697213479012-qslgvkho2kaco5km35qtsattdq2dsf5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwQih-Glh0u9hiZVn45oc8kI2p06TWplk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697213479012-qslgvkho2kaco5km35qtsattdq2dsf5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
