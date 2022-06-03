@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.diegolima.bancodigital.MainActivity;
 import com.diegolima.bancodigital.R;
-import com.diegolima.bancodigital.autenticacao.model.Usuario;
+import com.diegolima.bancodigital.model.Usuario;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
 

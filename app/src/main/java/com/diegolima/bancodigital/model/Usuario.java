@@ -1,4 +1,4 @@
-package com.diegolima.bancodigital.autenticacao.model;
+package com.diegolima.bancodigital.model;
 
 import com.google.firebase.database.Exclude;
 

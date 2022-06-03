@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/bg_btn.xml" value="0.1" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/bg_edt.xml" value="0.1" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_celular_login.xml" value="0.1" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_login.xml" value="0.21" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_recuperar_conta.xml" value="0.25" />
       </map>
     </option>
   </component>
