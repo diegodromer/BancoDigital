@@ -3,12 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/bg_aler_dialog.xml" value="0.103" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/bg_btn.xml" value="0.1" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/bg_edt.xml" value="0.1" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_celular_login.xml" value="0.1" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_cobrar.xml" value="0.1" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_logo.xml" value="0.1" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_recarga_cel.xml" value="0.103" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_user.xml" value="0.103" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_deposito_form.xml" value="0.25" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_deposito_recibo.xml" value="0.25" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_login.xml" value="0.21" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_minha_conta.xml" value="0.25" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_recuperar_conta.xml" value="0.25" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_splash.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/divisor.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/layout_dialog_info.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/toolbar_normal.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/toolbar_padrao.xml" value="0.21979166666666666" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/toolbar_padrao_white.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/toolbar_recibo.xml" value="0.22083333333333333" />
       </map>
     </option>
   </component>

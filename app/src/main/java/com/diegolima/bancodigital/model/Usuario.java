@@ -1,8 +1,17 @@
 package com.diegolima.bancodigital.model;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.Toast;
+
+import com.diegolima.bancodigital.app.MainActivity;
+import com.diegolima.bancodigital.helper.FirebaseHelper;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
 
 	private String id;
 	private String nome;
@@ -70,5 +79,13 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public void atualizarSaldo() {
+		DatabaseReference usuarioRef = FirebaseHelper.getDatabaseReference()
+				.child("usuarios")
+				.child(getId())
+				.child("saldo");
+		usuarioRef.setValue(getSaldo());
 	}
 }

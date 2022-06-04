@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.diegolima.bancodigital">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,7 +16,20 @@
         android:theme="@style/Theme.BancoDigital"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".RecargaFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".usuario.MinhaContaActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BancoDigital2" />
+        <activity
+            android:name=".deposito.DepositoReciboActivity"
+            android:exported="false" />
+        <activity
+            android:name=".deposito.DepositoFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.MainActivity"
             android:exported="false" />
         <activity
             android:name=".autenticacao.RecuperarContaActivity"
@@ -23,11 +38,12 @@
             android:name=".autenticacao.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".autenticacao.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".autenticacao.LoginActivity"
-            android:exported="true">
+            android:name=".app.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
