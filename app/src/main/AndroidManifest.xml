@@ -16,7 +16,10 @@
         android:theme="@style/Theme.BancoDigital"
         tools:targetApi="31">
         <activity
-            android:name=".RecargaFormActivity"
+            android:name=".recarga.RecargaReciboActivity"
+            android:exported="false" />
+        <activity
+            android:name=".recarga.RecargaFormActivity"
             android:exported="false" />
         <activity
             android:name=".usuario.MinhaContaActivity"

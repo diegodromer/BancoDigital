@@ -15,6 +15,7 @@ import com.diegolima.bancodigital.deposito.DepositoFormActivity;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.helper.GetMask;
 import com.diegolima.bancodigital.model.Usuario;
+import com.diegolima.bancodigital.recarga.RecargaFormActivity;
 import com.diegolima.bancodigital.usuario.MinhaContaActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
 			}else{
 				Toast.makeText(this, "Ainda estamos recuperando as informações.", Toast.LENGTH_SHORT).show();
 			}
+		});
+
+		findViewById(R.id.cardRecarga).setOnClickListener(v -> {
+			startActivity(new Intent(this, RecargaFormActivity.class));
 		});
 	}
 
