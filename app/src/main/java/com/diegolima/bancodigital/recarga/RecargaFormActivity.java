@@ -10,10 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.diegolima.bancodigital.R;
@@ -48,15 +46,9 @@ public class RecargaFormActivity extends AppCompatActivity {
 		configToolbar();
 
 		recuperaUsuario();
-
-		configClique();
 	}
 
-	private void configClique(){
-		findViewById(R.id.btnOK).setOnClickListener(v -> validaDados());
-	}
-
-	public void validaDados(){
+	public void validaDados(View view){
 
 		double valor = (double) edtValor.getRawValue() / 100;
 		String numero = edtTelefone.getUnMasked();
@@ -89,23 +81,6 @@ public class RecargaFormActivity extends AppCompatActivity {
 
 	}
 
-	private void recuperaUsuario() {
-		DatabaseReference usuarioRef = FirebaseHelper.getDatabaseReference()
-				.child("usuarios")
-				.child(FirebaseHelper.getIdFirebase());
-		usuarioRef.addValueEventListener(new ValueEventListener() {
-			@Override
-			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				usuario = snapshot.getValue(Usuario.class);
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError error) {
-
-			}
-		});
-	}
-
 	private void showDialog(String msg){
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				this, R.style.CustomAlertDialog
@@ -127,6 +102,23 @@ public class RecargaFormActivity extends AppCompatActivity {
 		dialog = builder.create();
 		dialog.show();
 
+	}
+
+	private void recuperaUsuario() {
+		DatabaseReference usuarioRef = FirebaseHelper.getDatabaseReference()
+				.child("usuarios")
+				.child(FirebaseHelper.getIdFirebase());
+		usuarioRef.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				usuario = snapshot.getValue(Usuario.class);
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+
+			}
+		});
 	}
 
 	private void salvarRecarga(Extrato extrato, String numero) {

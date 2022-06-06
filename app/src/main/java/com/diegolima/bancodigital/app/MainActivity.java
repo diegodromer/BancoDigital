@@ -16,6 +16,7 @@ import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.helper.GetMask;
 import com.diegolima.bancodigital.model.Usuario;
 import com.diegolima.bancodigital.recarga.RecargaFormActivity;
+import com.diegolima.bancodigital.transferencia.TransferenciaFormActivity;
 import com.diegolima.bancodigital.usuario.MinhaContaActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -84,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
 		findViewById(R.id.cardRecarga).setOnClickListener(v -> {
 			startActivity(new Intent(this, RecargaFormActivity.class));
 		});
+
+		findViewById(R.id.cardTransferir).setOnClickListener(v -> {
+			startActivity(new Intent(this, TransferenciaFormActivity.class));
+		});
+
 	}
 
 	private void iniciaComponentes() {
