@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.diegolima.bancodigital.R;
 import com.diegolima.bancodigital.deposito.DepositoFormActivity;
+import com.diegolima.bancodigital.extrato.ExtratoActivity;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.helper.GetMask;
 import com.diegolima.bancodigital.model.Usuario;
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
 			startActivity(new Intent(this, TransferenciaFormActivity.class));
 		});
 
+		findViewById(R.id.cardExtrato).setOnClickListener(v -> {
+			startActivity(new Intent(this, ExtratoActivity.class));
+		});
 	}
 
 	private void iniciaComponentes() {

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.diegolima.bancodigital.R;
+import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.model.Transferencia;
 
 import java.util.Locale;
@@ -39,6 +40,7 @@ public class TransferenciaFormActivity extends AppCompatActivity {
 		if (valor > 0){
 			ocultarTeclado();
 			Transferencia transferencia = new Transferencia();
+			transferencia.setIdUserOrigem(FirebaseHelper.getIdFirebase());
 			transferencia.setValor(valor);
 			Intent intent = new Intent(this, TransferirUsuarioActivity.class);
 			intent.putExtra("transferencia", transferencia);

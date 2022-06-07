@@ -16,7 +16,10 @@
         android:theme="@style/Theme.BancoDigital"
         tools:targetApi="31">
         <activity
-            android:name=".TransferenciaReciboActivity"
+            android:name=".extrato.ExtratoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transferencia.TransferenciaReciboActivity"
             android:exported="false" />
         <activity
             android:name=".transferencia.TransferenciaConfirmaActivity"

@@ -152,7 +152,6 @@ public class TransferirUsuarioActivity extends AppCompatActivity implements Usua
 		});
 	}
 
-
 	private void configRv() {
 		rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
 		rvUsuarios.setHasFixedSize(true);
@@ -185,6 +184,9 @@ public class TransferirUsuarioActivity extends AppCompatActivity implements Usua
 
 	@Override
 	public void OnClickListener(Usuario usuario) {
+
+		transferencia.setIdUserDestino(usuario.getId());
+
 		Intent intent = new Intent(this, TransferenciaConfirmaActivity.class);
 		intent.putExtra("usuario", usuario);
 		intent.putExtra("transferencia", transferencia);

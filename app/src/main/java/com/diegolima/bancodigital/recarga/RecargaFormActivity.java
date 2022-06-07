@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.santalu.maskara.widget.MaskEditText;
 
 import java.util.Locale;
+
 public class RecargaFormActivity extends AppCompatActivity {
 
 	private CurrencyEditText edtValor;
@@ -46,6 +47,7 @@ public class RecargaFormActivity extends AppCompatActivity {
 		configToolbar();
 
 		recuperaUsuario();
+
 	}
 
 	public void validaDados(View view){
@@ -81,6 +83,23 @@ public class RecargaFormActivity extends AppCompatActivity {
 
 	}
 
+	private void recuperaUsuario() {
+		DatabaseReference usuarioRef = FirebaseHelper.getDatabaseReference()
+				.child("usuarios")
+				.child(FirebaseHelper.getIdFirebase());
+		usuarioRef.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				usuario = snapshot.getValue(Usuario.class);
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+
+			}
+		});
+	}
+
 	private void showDialog(String msg){
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				this, R.style.CustomAlertDialog
@@ -102,23 +121,6 @@ public class RecargaFormActivity extends AppCompatActivity {
 		dialog = builder.create();
 		dialog.show();
 
-	}
-
-	private void recuperaUsuario() {
-		DatabaseReference usuarioRef = FirebaseHelper.getDatabaseReference()
-				.child("usuarios")
-				.child(FirebaseHelper.getIdFirebase());
-		usuarioRef.addValueEventListener(new ValueEventListener() {
-			@Override
-			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				usuario = snapshot.getValue(Usuario.class);
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError error) {
-
-			}
-		});
 	}
 
 	private void salvarRecarga(Extrato extrato, String numero) {
@@ -192,6 +194,7 @@ public class RecargaFormActivity extends AppCompatActivity {
 	private void iniciaComponentes(){
 		edtValor = findViewById(R.id.edtValor);
 		edtValor.setLocale(new Locale("PT", "br"));
+
 		edtTelefone = findViewById(R.id.edtTelefone);
 
 		progressBar = findViewById(R.id.progressBar);
