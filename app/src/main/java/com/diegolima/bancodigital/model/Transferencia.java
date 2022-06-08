@@ -13,8 +13,6 @@ public class Transferencia implements Serializable {
 	private double valor;
 
 	public Transferencia() {
-		DatabaseReference transferenciaRef = FirebaseHelper.getDatabaseReference();
-		setId(transferenciaRef.push().getKey());
 	}
 
 	public String getId() {

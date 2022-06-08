@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diegolima.bancodigital.R;
+import com.diegolima.bancodigital.helper.GetMask;
 import com.diegolima.bancodigital.model.Extrato;
 
 import java.util.List;
@@ -40,6 +41,25 @@ public class ExtratoAdapter extends RecyclerView.Adapter<ExtratoAdapter.MyViewHo
 
 		String icon = extrato.getOperacao().substring(0, 1);
 		holder.textIcon.setText(icon);
+		holder.textOperacao.setText(extrato.getOperacao());
+		holder.textData.setText(GetMask.getDate(extrato.getData(), 4));
+		holder.textValor.setText(context.getString(R.string.text_valor, GetMask.getValor(extrato.getValor())));
+
+		switch (extrato.getOperacao()){
+			case "DEPOSITO":
+				holder.textIcon.setBackgroundResource(R.drawable.bg_entrada);
+				break;
+			case "RECARGA":
+				holder.textIcon.setBackgroundResource(R.drawable.bg_saida);
+				break;
+			case "TRANSFERENCIA":
+				if (extrato.getTipo().equals("ENTRADA")){
+					holder.textIcon.setBackgroundResource(R.drawable.bg_entrada);
+				}else{
+					holder.textIcon.setBackgroundResource(R.drawable.bg_saida);
+				}
+				break;
+		}
 	}
 
 	@Override

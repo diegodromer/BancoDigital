@@ -72,7 +72,7 @@ public class DepositoFormActivity extends AppCompatActivity {
 		Extrato extrato = new Extrato();
 		extrato.setOperacao("DEPOSITO");
 		extrato.setValor(valorDeposito);
-		extrato.setTipo("ENTREDA");
+		extrato.setTipo("ENTRADA");
 
 		DatabaseReference extratoRef = FirebaseHelper.getDatabaseReference()
 				.child("extratos")

@@ -39,7 +39,7 @@ public class RecargaReciboActivity extends AppCompatActivity {
 	}
 
 	private void configCliques(){
-		findViewById(R.id.btnOK).setOnClickListener(v -> finish());
+		findViewById(R.id.btnOk).setOnClickListener(v -> finish());
 	}
 
 	private void getRecarga(){
