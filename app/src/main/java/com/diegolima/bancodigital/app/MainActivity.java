@@ -15,12 +15,15 @@ import android.widget.Toast;
 
 import com.diegolima.bancodigital.R;
 import com.diegolima.bancodigital.adapter.ExtratoAdapter;
+import com.diegolima.bancodigital.cobrar.CobrarFormActivity;
 import com.diegolima.bancodigital.deposito.DepositoFormActivity;
 import com.diegolima.bancodigital.extrato.ExtratoActivity;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.helper.GetMask;
 import com.diegolima.bancodigital.model.Extrato;
+import com.diegolima.bancodigital.model.Notificacao;
 import com.diegolima.bancodigital.model.Usuario;
+import com.diegolima.bancodigital.notificacoes.NotificacoesActivity;
 import com.diegolima.bancodigital.recarga.RecargaFormActivity;
 import com.diegolima.bancodigital.transferencia.TransferenciaFormActivity;
 import com.diegolima.bancodigital.usuario.MinhaContaActivity;
@@ -36,7 +39,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+	private final List<Notificacao> notificacaoList = new ArrayList<>();
+
+	private final List<Extrato> extratoListTemp = new ArrayList<>();
 	private final List<Extrato> extratoList = new ArrayList<>();
+
 	private ExtratoAdapter extratoAdapter;
 	private RecyclerView rvExtrato;
 
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 	private Usuario usuario;
 	private ProgressBar progressBar;
 	private TextView textInfo;
+	private TextView textNotificacao;
 	private ImageView imagemPerfil;
 
 	@Override
@@ -53,6 +61,34 @@ public class MainActivity extends AppCompatActivity {
 		iniciaComponentes();
 		configCliques();
 		configRv();
+	}
+
+	private void recuperaNotificacoes() {
+		DatabaseReference notificacaoRef = FirebaseHelper.getDatabaseReference()
+				.child("notificacoes")
+				.child(FirebaseHelper.getIdFirebase());
+		notificacaoRef.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				notificacaoList.clear();
+				for (DataSnapshot ds : snapshot.getChildren()){
+					Notificacao notificacao = ds.getValue(Notificacao.class);
+					notificacaoList.add(notificacao);
+				}
+				if (notificacaoList.isEmpty()){
+					textNotificacao.setText("0");
+					textNotificacao.setVisibility(View.GONE);
+				}else {
+					textNotificacao.setText(String.valueOf(notificacaoList.size()));
+					textNotificacao.setVisibility(View.VISIBLE);
+				}
+			}
+
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+
+			}
+		});
 	}
 
 	@Override
@@ -70,13 +106,11 @@ public class MainActivity extends AppCompatActivity {
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				if (snapshot.exists()) {
 					extratoList.clear();
+					extratoListTemp.clear();
 
 					for (DataSnapshot ds : snapshot.getChildren()) {
 						Extrato extrato = ds.getValue(Extrato.class);
-						extratoList.add(extrato);
-						if (extratoList.size() == 6){
-							break;
-						}
+						extratoListTemp.add(extrato);
 					}
 
 					textInfo.setText("");
@@ -84,7 +118,14 @@ public class MainActivity extends AppCompatActivity {
 					textInfo.setText("Nenhuma movimentação encontrada.");
 				}
 
-				Collections.reverse(extratoList);
+				Collections.reverse(extratoListTemp);
+
+				for (int i = 0; i < extratoListTemp.size(); i++) {
+					if (i <= 5){
+						extratoList.add(extratoListTemp.get(i));
+					}
+				}
+
 				progressBar.setVisibility(View.GONE);
 				extratoAdapter.notifyDataSetChanged();
 
@@ -107,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 	private void recuperaDados() {
 		recuperaUsuario();
 		recuperaExtrato();
+		recuperaNotificacoes();
 	}
 
 	private void recuperaUsuario() {
@@ -170,6 +212,13 @@ public class MainActivity extends AppCompatActivity {
 		findViewById(R.id.textVerTodas).setOnClickListener(v -> {
 			verTodosMovimentos();
 		});
+
+		findViewById(R.id.btnNotificacao).setOnClickListener(v -> {
+			startActivity(new Intent(this, NotificacoesActivity.class));
+		});
+		findViewById(R.id.cardCobrar).setOnClickListener(v -> {
+			startActivity(new Intent(this, CobrarFormActivity.class));
+		});
 	}
 
 	private void verTodosMovimentos() {
@@ -182,5 +231,6 @@ public class MainActivity extends AppCompatActivity {
 		progressBar = findViewById(R.id.progressBar);
 		rvExtrato = findViewById(R.id.rvExtrato);
 		imagemPerfil = findViewById(R.id.imagemPerfil);
+		textNotificacao = findViewById(R.id.textNotificacao);
 	}
 }

@@ -1,54 +1,53 @@
-package com.diegolima.bancodigital.transferencia;
+package com.diegolima.bancodigital.cobrar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.diegolima.bancodigital.R;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
-import com.diegolima.bancodigital.model.Transferencia;
+import com.diegolima.bancodigital.model.Cobranca;
+import com.diegolima.bancodigital.transferencia.SelecionarUsuarioActivity;
 
 import java.util.Locale;
 
-public class TransferenciaFormActivity extends AppCompatActivity {
+public class CobrarFormActivity extends AppCompatActivity {
 
 	private CurrencyEditText edtValor;
+
 	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_transferencia_form);
+		setContentView(R.layout.activity_cobrar_form);
 
-		configToolbar();
 		iniciaComponentes();
+		configToolbar();
 	}
 
-	public void validaDados(View view) {
+	public void continuar(View view) {
 		double valor = (double) edtValor.getRawValue() / 100;
 
-		if (valor > 0){
-			ocultarTeclado();
-			Transferencia transferencia = new Transferencia();
-			transferencia.setIdUserOrigem(FirebaseHelper.getIdFirebase());
-			transferencia.setValor(valor);
+		if (valor >= 10){
+			Cobranca cobranca = new Cobranca();
+			cobranca.setValor(valor);
+			cobranca.setId(FirebaseHelper.getIdFirebase());
 			Intent intent = new Intent(this, SelecionarUsuarioActivity.class);
-			intent.putExtra("transferencia", transferencia);
+			intent.putExtra("cobranca", cobranca);
 			startActivity(intent);
 		}else {
 			showDialog();
 		}
 	}
 
-	private void showDialog(){
+	private void showDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				this, R.style.CustomAlertDialog
 		);
@@ -59,7 +58,7 @@ public class TransferenciaFormActivity extends AppCompatActivity {
 		textTitulo.setText("Atenção");
 
 		TextView mensagem = view.findViewById(R.id.textMensagem);
-		mensagem.setText("Digite um valor maior que 0.");
+		mensagem.setText("Valor mínimo para recebimento é de miaor ou igual a R$ 10,00");
 
 		Button btnOK = view.findViewById(R.id.btnOK);
 		btnOK.setOnClickListener(v -> dialog.dismiss());
@@ -71,21 +70,16 @@ public class TransferenciaFormActivity extends AppCompatActivity {
 
 	}
 
-	private void configToolbar(){
+	private void configToolbar() {
 		TextView textTitulo = findViewById(R.id.textTitulo);
-		textTitulo.setText("Transferir");
+		textTitulo.setText("Cobrar");
 
 		findViewById(R.id.ibVoltar).setOnClickListener(v -> finish());
 	}
 
-	private void ocultarTeclado() {
-		InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-		inputMethodManager.hideSoftInputFromWindow(edtValor.getWindowToken(),
-				InputMethodManager.HIDE_NOT_ALWAYS);
-	}
-
-	private void iniciaComponentes(){
+	private void iniciaComponentes() {
 		edtValor = findViewById(R.id.edtValor);
 		edtValor.setLocale(new Locale("PT", "br"));
 	}
+
 }

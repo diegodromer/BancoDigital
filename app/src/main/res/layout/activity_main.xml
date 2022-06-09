@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
     android:background="@color/colorPrimary"
+    android:padding="24dp"
     tools:context=".app.MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -20,9 +20,9 @@
         <ImageView
             android:id="@+id/imagemPerfil"
             android:layout_width="wrap_content"
-            android:scaleType="centerCrop"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
             android:src="@drawable/loading" />
     </androidx.cardview.widget.CardView>
 
@@ -63,16 +63,35 @@
         android:layout_height="wrap_content"
         android:text="Ver todas"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="@+id/btnNotificacao"
         app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textNotificacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/bg_notificacao"
+        android:elevation="5dp"
+        android:gravity="center"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/btnNotificacao"
+        app:layout_constraintTop_toTopOf="@+id/btnNotificacao"
+        tools:text="1"
+        tools:visibility="visible" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="16dp"
-        app:cardCornerRadius="10dp"
         android:background="@android:color/transparent"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="@+id/textVerTodas"
         app:layout_constraintStart_toStartOf="@+id/textView11"
@@ -120,7 +139,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btnNotificacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -251,7 +270,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_margin="8dp"
-                    android:src="@drawable/ic_cobrar" />
+                    android:src="@drawable/ic_transferir" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -259,6 +278,30 @@
                     android:layout_gravity="bottom"
                     android:layout_margin="8dp"
                     android:text="Receber"
+                    android:textColor="@color/black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCobrar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginVertical="8dp"
+                android:layout_marginStart="12dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_cobrar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="8dp"
+                    android:text="Cobrar"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
 
@@ -291,8 +334,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginVertical="8dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginStart="12dp"
+                android:layout_marginEnd="24dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="5dp">
 

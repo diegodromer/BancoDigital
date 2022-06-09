@@ -16,6 +16,15 @@
         android:theme="@style/Theme.BancoDigital"
         tools:targetApi="31">
         <activity
+            android:name=".CobrancaConfirmaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cobrar.CobrarFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".notificacoes.NotificacoesActivity"
+            android:exported="false" />
+        <activity
             android:name=".extrato.ExtratoActivity"
             android:exported="false" />
         <activity
@@ -25,7 +34,7 @@
             android:name=".transferencia.TransferenciaConfirmaActivity"
             android:exported="false" />
         <activity
-            android:name=".transferencia.TransferirUsuarioActivity"
+            android:name=".transferencia.SelecionarUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".transferencia.TransferenciaFormActivity"

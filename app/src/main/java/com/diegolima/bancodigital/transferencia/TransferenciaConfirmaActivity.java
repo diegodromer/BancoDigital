@@ -15,6 +15,7 @@ import com.diegolima.bancodigital.R;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.helper.GetMask;
 import com.diegolima.bancodigital.model.Extrato;
+import com.diegolima.bancodigital.model.Notificacao;
 import com.diegolima.bancodigital.model.Transferencia;
 import com.diegolima.bancodigital.model.Usuario;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +63,15 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 
 			}
 		});
+	}
+
+	private void enviaNotificacao(String idOperacao){
+		Notificacao notificacao = new Notificacao();
+		notificacao.setOperacao("TRANSFERENCIA");
+		notificacao.setIdDestinario(usuarioDestino.getId());
+		notificacao.setIdEmitente(usuarioOrigem.getId());
+		notificacao.setIdOperacao(idOperacao);
+		notificacao.enviar();
 	}
 
 	public void confirmaTransferencia(View view) {
@@ -123,6 +133,7 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 				updateTransferencia.setValue(ServerValue.TIMESTAMP);
 
 				if (extrato.getTipo().equals("ENTRADA")){
+					enviaNotificacao(extrato.getId());
 					Intent intent = new Intent(this, TransferenciaReciboActivity.class);
 					intent.putExtra("idTransferencia", transferencia.getId());
 					startActivity(intent);
