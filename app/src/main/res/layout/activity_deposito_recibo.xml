@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include2"
-        layout="@layout/toolbar_recibo"
+        layout="@layout/toolbar_padrao_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.diegolima.bancodigital.R;
@@ -20,6 +22,7 @@ public class DepositoReciboActivity extends AppCompatActivity {
 	private TextView textCodigo;
 	private TextView textData;
 	private TextView textValor;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

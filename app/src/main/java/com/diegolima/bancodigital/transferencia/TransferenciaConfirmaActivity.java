@@ -42,13 +42,17 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transferencia_confirma);
 
-		iniciaComponentes();
 		configToolbar();
+
+		iniciaComponentes();
+
 		configDados();
+
 		recuperaUsuarioOrigem();
+
 	}
 
-	private void recuperaUsuarioOrigem() {
+	private void recuperaUsuarioOrigem(){
 		DatabaseReference usuarioRef = FirebaseHelper.getDatabaseReference()
 				.child("usuarios")
 				.child(transferencia.getIdUserOrigem());
@@ -74,20 +78,23 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 		notificacao.enviar();
 	}
 
-	public void confirmaTransferencia(View view) {
+	public void confirmarTransferencia(View view){
+		if(transferencia != null){
+			if(usuarioOrigem.getSaldo() >= transferencia.getValor()){
 
-		usuarioOrigem.setSaldo(usuarioOrigem.getSaldo() - transferencia.getValor());
-		usuarioOrigem.atualizarSaldo();
+				usuarioOrigem.setSaldo(usuarioOrigem.getSaldo() - transferencia.getValor());
+				usuarioOrigem.atualizarSaldo();
 
-		usuarioDestino.setSaldo(usuarioDestino.getSaldo() + transferencia.getValor());
-		usuarioDestino.atualizarSaldo();
+				usuarioDestino.setSaldo(usuarioDestino.getSaldo() + transferencia.getValor());
+				usuarioDestino.atualizarSaldo();
 
-		if (transferencia != null) {
-			if (usuarioOrigem.getSaldo() >= transferencia.getValor()) {
+				// Origem
 				salvarExtrato(usuarioOrigem, "SAIDA");
 
+				// Destino
 				salvarExtrato(usuarioDestino, "ENTRADA");
-			} else {
+
+			}else {
 				showDialog("Saldo insuficiente.");
 			}
 		}
@@ -112,6 +119,7 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 				updateExtrato.setValue(ServerValue.TIMESTAMP);
 
 				salvarTransferencia(extrato);
+
 			}else {
 				showDialog("Não foi possível efetuar o deposito, tente mais tarde.");
 			}
@@ -119,7 +127,7 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 
 	}
 
-	private void salvarTransferencia(Extrato extrato) {
+	private void salvarTransferencia(Extrato extrato){
 
 		transferencia.setId(extrato.getId());
 
@@ -127,24 +135,28 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 				.child("transferencias")
 				.child(transferencia.getId());
 		transferenciaRef.setValue(transferencia).addOnCompleteListener(task -> {
-			if (task.isSuccessful()) {
+			if(task.isSuccessful()){
+
 				DatabaseReference updateTransferencia = transferenciaRef
 						.child("data");
 				updateTransferencia.setValue(ServerValue.TIMESTAMP);
 
-				if (extrato.getTipo().equals("ENTRADA")){
+				if(extrato.getTipo().equals("ENTRADA")){
+
 					enviaNotificacao(extrato.getId());
+
 					Intent intent = new Intent(this, TransferenciaReciboActivity.class);
 					intent.putExtra("idTransferencia", transferencia.getId());
 					startActivity(intent);
 				}
-			} else {
+
+			}else {
 				showDialog("Não foi possível completar a transferência.");
 			}
 		});
 	}
 
-	private void showDialog(String msg) {
+	private void showDialog(String msg){
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				this, R.style.CustomAlertDialog
 		);
@@ -167,25 +179,29 @@ public class TransferenciaConfirmaActivity extends AppCompatActivity {
 
 	}
 
-	private void configDados() {
+	private void configDados(){
 		usuarioDestino = (Usuario) getIntent().getSerializableExtra("usuario");
 		transferencia = (Transferencia) getIntent().getSerializableExtra("transferencia");
 
 		textUsuario.setText(usuarioDestino.getNome());
-		if (usuarioDestino.getUrlImagem() != null) {
-			Picasso.get().load(usuarioDestino.getUrlImagem()).placeholder(R.drawable.loading).into(imagemUsuario);
+		if(usuarioDestino.getUrlImagem() != null){
+			Picasso.get().load(usuarioDestino.getUrlImagem())
+					.placeholder(R.drawable.loading)
+					.into(imagemUsuario);
 		}
 		textValor.setText(getString(R.string.text_valor, GetMask.getValor(transferencia.getValor())));
+
 	}
 
-	private void iniciaComponentes() {
+	private void configToolbar(){
+		TextView textTitulo = findViewById(R.id.textTitulo);
+		textTitulo.setText("Confirme os dados");
+	}
+
+	private void iniciaComponentes(){
 		textValor = findViewById(R.id.textValor);
 		textUsuario = findViewById(R.id.textUsuario);
 		imagemUsuario = findViewById(R.id.imagemUsuario);
 	}
 
-	private void configToolbar() {
-		TextView textTitulo = findViewById(R.id.textTitulo);
-		textTitulo.setText("Confirme os dados");
-	}
 }

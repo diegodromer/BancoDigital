@@ -43,10 +43,11 @@ public class NotificacaoAdapter extends RecyclerView.Adapter<NotificacaoAdapter.
 
 	@Override
 	public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-		Notificacao notificacao = notificacaoList.get(position);
-		String titulo = "";
 
-		switch (notificacao.getOperacao()) {
+		Notificacao notificacao = notificacaoList.get(position);
+
+		String titulo = "";
+		switch (notificacao.getOperacao()){
 			case "COBRANCA":
 				titulo = "Você recebeu uma cobrança.";
 				break;
@@ -57,13 +58,14 @@ public class NotificacaoAdapter extends RecyclerView.Adapter<NotificacaoAdapter.
 				titulo = "Você recebeu um pagamento.";
 				break;
 		}
+
 		holder.textTitulo.setText(titulo);
 		holder.textData.setText(GetMask.getDate(notificacao.getData(), 3));
 
-		if (notificacao.isLida()) {
+		if(notificacao.isLida()){
 			holder.textTitulo.setTypeface(null, Typeface.NORMAL);
 			holder.textData.setTypeface(null, Typeface.NORMAL);
-		} else {
+		}else {
 			holder.textTitulo.setTypeface(null, Typeface.BOLD);
 			holder.textData.setTypeface(null, Typeface.BOLD);
 		}
@@ -81,8 +83,16 @@ public class NotificacaoAdapter extends RecyclerView.Adapter<NotificacaoAdapter.
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				Usuario usuario = snapshot.getValue(Usuario.class);
-				if (usuario != null){
-					holder.textEmitente.setText(context.getString(R.string.text_enviada_por, usuario.getNome()));
+				if(usuario != null){
+					switch (notificacao.getOperacao()){
+						case "COBRANCA":
+						case "TRANSFERENCIA":
+							holder.textEmitente.setText(context.getString(R.string.text_enviada_por, usuario.getNome()));
+							break;
+						case "PAGAMENTO":
+							holder.textEmitente.setText(context.getString(R.string.text_enviado_por, usuario.getNome()));
+							break;
+					}
 				}
 			}
 
@@ -97,11 +107,11 @@ public class NotificacaoAdapter extends RecyclerView.Adapter<NotificacaoAdapter.
 		return notificacaoList.size();
 	}
 
-	public interface OnClick {
+	public interface OnClick{
 		void OnClickListener(Notificacao notificacao);
 	}
 
-	static class MyViewHolder extends RecyclerView.ViewHolder {
+	static class MyViewHolder extends RecyclerView.ViewHolder{
 
 		TextView textTitulo, textData, textEmitente, textMensagem;
 
@@ -114,4 +124,5 @@ public class NotificacaoAdapter extends RecyclerView.Adapter<NotificacaoAdapter.
 			textMensagem = itemView.findViewById(R.id.textMensagem);
 		}
 	}
+
 }

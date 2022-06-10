@@ -220,6 +220,16 @@ public class MainActivity extends AppCompatActivity {
 		findViewById(R.id.cardCobrar).setOnClickListener(v -> {
 			startActivity(new Intent(this, CobrarFormActivity.class));
 		});
+
+		findViewById(R.id.cardMinhaConta).setOnClickListener(v -> {
+			if (usuario != null) {
+				Intent intent = new Intent(this, MinhaContaActivity.class);
+				intent.putExtra("usuario", usuario);
+				startActivity(intent);
+			} else {
+				Toast.makeText(this, "Ainda estamos recuperando as informações.", Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 
 	private void verTodosMovimentos() {

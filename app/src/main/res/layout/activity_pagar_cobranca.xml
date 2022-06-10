@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include7"
-        layout="@layout/toolbar_normal"
+        layout="@layout/toolbar_padrao_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -170,7 +170,7 @@
         android:backgroundTint="@color/colorRecibo"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:onClick="confirmaPagamento"
+        android:onClick="confirmarPagamento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

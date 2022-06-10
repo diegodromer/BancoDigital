@@ -18,8 +18,11 @@ import com.diegolima.bancodigital.app.MainActivity;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.helper.GetMask;
 import com.diegolima.bancodigital.model.Cobranca;
+import com.diegolima.bancodigital.model.Extrato;
 import com.diegolima.bancodigital.model.Notificacao;
+import com.diegolima.bancodigital.model.Pagamento;
 import com.diegolima.bancodigital.model.Usuario;
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,8 +56,109 @@ public class PagarCobrancaActivity extends AppCompatActivity {
 
 		iniciaComponentes();
 
+		recuperaUsuarioOrigem();
+
 		getExtra();
 
+	}
+
+	public void confirmarPagamento(View view){
+		if(cobranca != null){
+			if(!cobranca.isPaga()){
+				if(usuarioDestino != null && usuarioOrigem != null){
+					if(usuarioOrigem.getSaldo() >= cobranca.getValor()){
+
+						usuarioOrigem.setSaldo(usuarioOrigem.getSaldo() - cobranca.getValor());
+						usuarioOrigem.atualizarSaldo();
+
+						usuarioDestino.setSaldo(usuarioDestino.getSaldo() + cobranca.getValor());
+						usuarioDestino.atualizarSaldo();
+
+						atualizarStatusCobranca();
+
+						// Salva no Extrato do usuário que enviou o pagamento
+						salvarExtrato(usuarioOrigem, "SAIDA");
+
+						// Salva no Extrato do usuário que recebeu o pagamento
+						salvarExtrato(usuarioDestino, "ENTRADA");
+
+					}else {
+						showDialog("Saldo insuficiente.");
+					}
+				}else {
+					Toast.makeText(this, "Ainda estamos recuperando as informações.", Toast.LENGTH_SHORT).show();
+				}
+			}else {
+				showDialog("O pagamento já foi realizado para esta cobrança.");
+			}
+		}else {
+			Toast.makeText(this, "Ainda estamos recuperando as informações.", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	private void salvarExtrato(Usuario usuario, String tipo){
+
+		Extrato extrato = new Extrato();
+		extrato.setOperacao("PAGAMENTO");
+		extrato.setValor(cobranca.getValor());
+		extrato.setTipo(tipo);
+
+		DatabaseReference extratoRef = FirebaseHelper.getDatabaseReference()
+				.child("extratos")
+				.child(usuario.getId())
+				.child(extrato.getId());
+		extratoRef.setValue(extrato).addOnCompleteListener(task -> {
+			if(task.isSuccessful()){
+
+				DatabaseReference updateExtrato = extratoRef
+						.child("data");
+				updateExtrato.setValue(ServerValue.TIMESTAMP);
+
+				salvarPagamento(extrato);
+
+			}else {
+				showDialog("Não foi possível efetuar o pagamento, tente mais tarde.");
+			}
+		});
+
+	}
+
+	private void salvarPagamento(Extrato extrato) {
+
+		Pagamento pagamento = new Pagamento();
+		pagamento.setId(extrato.getId());
+		pagamento.setIdCobranca(cobranca.getId());
+		pagamento.setValor(cobranca.getValor());
+		pagamento.setIdUserDestino(usuarioDestino.getId());
+		pagamento.setIdUserOrigem(usuarioOrigem.getId());
+
+		DatabaseReference pagamentoRef = FirebaseHelper.getDatabaseReference()
+				.child("pagamentos")
+				.child(extrato.getId());
+		pagamentoRef.setValue(pagamento).addOnSuccessListener(aVoid -> {
+
+			DatabaseReference update = pagamentoRef.child("data");
+			update.setValue(ServerValue.TIMESTAMP);
+
+		});
+
+		if(extrato.getTipo().equals("ENTRADA")){
+			configNotificacao(extrato.getId());
+		}else {
+			Intent intent = new Intent(this, ReciboPagamentoActivity.class);
+			intent.putExtra("idPagamento", pagamento.getId());
+			startActivity(intent);
+		}
+
+	}
+
+	private void atualizarStatusCobranca(){
+		DatabaseReference cobrancaRef = FirebaseHelper.getDatabaseReference()
+				.child("cobrancas")
+				.child(FirebaseHelper.getIdFirebase())
+				.child(notificacao.getIdOperacao())
+				.child("paga");
+		cobrancaRef.setValue(true);
 	}
 
 	private void getExtra(){
@@ -84,12 +188,12 @@ public class PagarCobrancaActivity extends AppCompatActivity {
 	}
 
 	// Configura a notificação
-	private void configNotificacao(){
+	private void configNotificacao(String idOperacao){
 		Notificacao notificacao = new Notificacao();
-		notificacao.setIdOperacao(cobranca.getId());
-		notificacao.setIdDestinario(cobranca.getIdDestinatario());
-		notificacao.setIdEmitente(FirebaseHelper.getIdFirebase());
-		notificacao.setOperacao("COBRANCA");
+		notificacao.setIdOperacao(idOperacao);
+		notificacao.setIdDestinario(usuarioDestino.getId());
+		notificacao.setIdEmitente(usuarioOrigem.getId());
+		notificacao.setOperacao("PAGAMENTO");
 
 		// Envia a notificação para o usuário que irá receber a cobrança
 		enviarNotificacao(notificacao);
@@ -109,20 +213,13 @@ public class PagarCobrancaActivity extends AppCompatActivity {
 						.child("data");
 				updateRef.setValue(ServerValue.TIMESTAMP);
 
-				Toast.makeText(this, "Cobrança enviada com sucesso!", Toast.LENGTH_SHORT).show();
-
-				Intent intent = new Intent(this, MainActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-
 			}else {
 				progressBar.setVisibility(View.GONE);
-				showDialog();
 			}
 		});
 	}
 
-	private void showDialog(){
+	private void showDialog(String msg){
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				this, R.style.CustomAlertDialog
 		);
@@ -133,7 +230,7 @@ public class PagarCobrancaActivity extends AppCompatActivity {
 		textTitulo.setText("Atenção");
 
 		TextView mensagem = view.findViewById(R.id.textMensagem);
-		mensagem.setText("Não foi possível salvar os dados, tente novamente mais tarde.");
+		mensagem.setText(msg);
 
 		Button btnOK = view.findViewById(R.id.btnOK);
 		btnOK.setOnClickListener(v -> dialog.dismiss());
@@ -170,8 +267,7 @@ public class PagarCobrancaActivity extends AppCompatActivity {
 		usuarioRef.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				usuarioDestino = snapshot.getValue(Usuario.class);
-				configDados();
+				usuarioOrigem = snapshot.getValue(Usuario.class);
 			}
 
 			@Override
@@ -197,6 +293,8 @@ public class PagarCobrancaActivity extends AppCompatActivity {
 	private void configToolbar(){
 		TextView textTitulo = findViewById(R.id.textTitulo);
 		textTitulo.setText("Confirme os dados");
+
+		findViewById(R.id.ibVoltar).setOnClickListener(v -> finish());
 	}
 
 	private void iniciaComponentes(){
