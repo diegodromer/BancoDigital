@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.diegolima.bancodigital.R;
 import com.diegolima.bancodigital.adapter.UsuarioAdapter;
+import com.diegolima.bancodigital.cobrar.CobrancaConfirmaActivity;
 import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.diegolima.bancodigital.model.Cobranca;
 import com.diegolima.bancodigital.model.Transferencia;
@@ -190,22 +191,22 @@ public class SelecionarUsuarioActivity extends AppCompatActivity implements Usua
 	public void OnClickListener(Usuario usuario) {
 
 		String idUsuario = usuario.getId();
-		Intent intent = new Intent();
 
 		if (transferencia != null){
 
 			transferencia.setIdUserDestino(idUsuario);
-			new Intent(this, TransferenciaConfirmaActivity.class);
+			Intent intent = new Intent(this, TransferenciaConfirmaActivity.class);
 			intent.putExtra("transferencia", transferencia);
+			intent.putExtra("usuario", usuario);
+			startActivity(intent);
 
 		}else if (cobranca != null){
 
 			cobranca.setIdDestinatario(idUsuario);
-			new Intent(this, TransferenciaConfirmaActivity.class);
+			Intent intent = new Intent(this, CobrancaConfirmaActivity.class);
 			intent.putExtra("cobranca", cobranca);
-
+			intent.putExtra("usuario", usuario);
+			startActivity(intent);
 		}
-		intent.putExtra("usuario", usuario);
-		startActivity(intent);
 	}
 }

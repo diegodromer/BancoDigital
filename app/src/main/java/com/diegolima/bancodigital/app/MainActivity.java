@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
 		findViewById(R.id.btnNotificacao).setOnClickListener(v -> {
 			startActivity(new Intent(this, NotificacoesActivity.class));
 		});
+
 		findViewById(R.id.cardCobrar).setOnClickListener(v -> {
 			startActivity(new Intent(this, CobrarFormActivity.class));
 		});

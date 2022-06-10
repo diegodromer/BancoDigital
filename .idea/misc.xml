@@ -17,6 +17,7 @@
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_recarga_cel.xml" value="0.103" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/drawable/ic_user.xml" value="0.103" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_cobranca_confirma.xml" value="0.1" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_cobrar_form.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_deposito_form.xml" value="0.25" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_deposito_recibo.xml" value="0.25" />
@@ -25,6 +26,7 @@
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_main.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_minha_conta.xml" value="0.25" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_notificacoes.xml" value="0.25" />
+        <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_pagar_cobranca.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_recarda_recibo.xml" value="0.25" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_recarga_form.xml" value="0.22" />
         <entry key="..\:/Users/diego/AndroidStudioProjects/BancoDigital/app/src/main/res/layout/activity_recarga_recibo.xml" value="0.22083333333333333" />

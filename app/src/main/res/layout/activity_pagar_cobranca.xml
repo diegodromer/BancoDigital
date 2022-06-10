@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cobrar.CobrancaConfirmaActivity">
+    tools:context=".cobrar.PagarCobrancaActivity">
 
     <include
         android:id="@+id/include7"
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:text="Confirme os dados antes de confirmar a cobrança"
+                android:text="Confirme os dados antes de confirmar o pagamento"
                 android:textAlignment="center"
                 android:textColor="@color/colorText"
                 android:textSize="24sp"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:text="Após confirmar cobrança não será possível desfazê-la."
+                android:text="Após confirmar o pagamento não será possível desfazê-la."
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="@+id/textView13"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:text="Receberá a cobrança"
+                android:text="Receberá o pagamento"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="@+id/textView13"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
@@ -130,15 +130,31 @@
                 app:layout_constraintTop_toTopOf="@+id/textView17"
                 tools:text="R$ 100,00" />
 
-            <ProgressBar
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text="Data"
+                app:layout_constraintStart_toStartOf="@+id/textView13"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <TextView
+                android:id="@+id/textData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/textView13"
+                app:layout_constraintTop_toTopOf="@+id/textView12"
+                tools:text="01/12/2021" />
+
+            <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/textView13"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@+id/textView17"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
                 tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -154,7 +170,7 @@
         android:backgroundTint="@color/colorRecibo"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:onClick="confirmaCobranca"
+        android:onClick="confirmaPagamento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

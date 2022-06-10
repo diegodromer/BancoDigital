@@ -144,7 +144,7 @@
         android:backgroundTint="@color/colorRecibo"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:onClick="confirmaTransferencia"
+        android:onClick="confirmaCobranca"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

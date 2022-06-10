@@ -16,7 +16,10 @@
         android:theme="@style/Theme.BancoDigital"
         tools:targetApi="31">
         <activity
-            android:name=".CobrancaConfirmaActivity"
+            android:name=".cobrar.PagarCobrancaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cobrar.CobrancaConfirmaActivity"
             android:exported="false" />
         <activity
             android:name=".cobrar.CobrarFormActivity"

@@ -4,7 +4,9 @@ import com.diegolima.bancodigital.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
 
-public class Notificacao {
+import java.io.Serializable;
+
+public class Notificacao implements Serializable {
 	private String id;
 	private String idEmitente;
 	private String idDestinario;

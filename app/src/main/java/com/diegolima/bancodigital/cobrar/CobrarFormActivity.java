@@ -20,7 +20,6 @@ import java.util.Locale;
 public class CobrarFormActivity extends AppCompatActivity {
 
 	private CurrencyEditText edtValor;
-
 	private AlertDialog dialog;
 
 	@Override
@@ -29,25 +28,32 @@ public class CobrarFormActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_cobrar_form);
 
 		iniciaComponentes();
+
 		configToolbar();
+
 	}
 
-	public void continuar(View view) {
+	public void continuar(View view){
+
 		double valor = (double) edtValor.getRawValue() / 100;
 
-		if (valor >= 10){
+		if(valor >= 10){
+
 			Cobranca cobranca = new Cobranca();
+			cobranca.setIdEmitente(FirebaseHelper.getIdFirebase());
 			cobranca.setValor(valor);
-			cobranca.setId(FirebaseHelper.getIdFirebase());
+
 			Intent intent = new Intent(this, SelecionarUsuarioActivity.class);
 			intent.putExtra("cobranca", cobranca);
 			startActivity(intent);
+
 		}else {
 			showDialog();
 		}
+
 	}
 
-	private void showDialog() {
+	private void showDialog(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				this, R.style.CustomAlertDialog
 		);
@@ -58,7 +64,7 @@ public class CobrarFormActivity extends AppCompatActivity {
 		textTitulo.setText("Atenção");
 
 		TextView mensagem = view.findViewById(R.id.textMensagem);
-		mensagem.setText("Valor mínimo para recebimento é de miaor ou igual a R$ 10,00");
+		mensagem.setText("Valor mínimo para recebimento é de maior ou igual a R$ 10,00");
 
 		Button btnOK = view.findViewById(R.id.btnOK);
 		btnOK.setOnClickListener(v -> dialog.dismiss());
@@ -70,14 +76,14 @@ public class CobrarFormActivity extends AppCompatActivity {
 
 	}
 
-	private void configToolbar() {
+	private void configToolbar(){
 		TextView textTitulo = findViewById(R.id.textTitulo);
 		textTitulo.setText("Cobrar");
 
 		findViewById(R.id.ibVoltar).setOnClickListener(v -> finish());
 	}
 
-	private void iniciaComponentes() {
+	private void iniciaComponentes(){
 		edtValor = findViewById(R.id.edtValor);
 		edtValor.setLocale(new Locale("PT", "br"));
 	}
