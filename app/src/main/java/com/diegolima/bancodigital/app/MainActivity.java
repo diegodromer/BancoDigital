@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.diegolima.bancodigital.R;
 import com.diegolima.bancodigital.adapter.ExtratoAdapter;
+import com.diegolima.bancodigital.autenticacao.LoginActivity;
 import com.diegolima.bancodigital.cobrar.CobrarFormActivity;
 import com.diegolima.bancodigital.deposito.DepositoFormActivity;
 import com.diegolima.bancodigital.extrato.ExtratoActivity;
@@ -185,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
 	private void configCliques() {
 		findViewById(R.id.cardDeposito).setOnClickListener(view -> {
 			startActivity(new Intent(this, DepositoFormActivity.class));
+		});
+
+		findViewById(R.id.cardDeslogar).setOnClickListener(v -> {
+			FirebaseHelper.getAuth().signOut();
+			startActivity(new Intent(this, LoginActivity.class));
 		});
 
 		imagemPerfil.setOnClickListener(v -> {
