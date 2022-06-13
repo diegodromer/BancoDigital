@@ -26,7 +26,7 @@ Aplicativo desenvolvido para poder estudar melhor meus conhecimentos sobre Andro
 
 #Tela de Detalhes
 
-![login](https://user-images.githubusercontent.com/24457337/173345064-e2ab0a7c-32ef-4876-a04e-a76fef13d4fb.png)
+![tela de detalhes](https://user-images.githubusercontent.com/24457337/173349614-2dd0cba4-2833-4f5f-a182-b78d822e568a.png)
 
 #Tela de Transferência
 
