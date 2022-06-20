@@ -8,7 +8,7 @@ Aplicativo desenvolvido para poder estudar melhor meus conhecimentos sobre Andro
 
 ![login](https://user-images.githubusercontent.com/24457337/173345064-e2ab0a7c-32ef-4876-a04e-a76fef13d4fb.png)
 
-#Tela de splash
+- Tela de splash
 
 ![splash](https://user-images.githubusercontent.com/24457337/173345040-6f37151c-b442-4a4d-8f55-6d20a1246d80.png)
 
